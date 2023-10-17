@@ -1,7 +1,6 @@
-// Функция для генерации случайного числа в заданном диапазоне
+
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-// Функция для создания случайного комментария
 const generateRandomComment = () => {
   const comments = [
     'Всё отлично!',
@@ -23,8 +22,6 @@ const generateRandomComment = () => {
     name: randomName,
   };
 };
-
-// Создание массива из 25 объектов
 const photoArray = Array.from({ length: 25 }, (_, i) => ({
   id: i + 1,
   url: `photos/${i + 1}.jpg`,
@@ -32,3 +29,4 @@ const photoArray = Array.from({ length: 25 }, (_, i) => ({
   likes: getRandomNumber(15, 200),
   comments: Array.from({ length: getRandomNumber(0, 30) }, generateRandomComment),
 }));
+photoArray();
