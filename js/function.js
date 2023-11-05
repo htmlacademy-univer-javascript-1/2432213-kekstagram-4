@@ -1,16 +1,23 @@
-const checkStringLength = function (str, maxLength) {
-  return str.length <= maxLength;
-};
-checkStringLength('проверяемая строка', 20);
-checkStringLength('проверяемая строка', 10);
-
-const isPalindrome = function (str) {
-  const normalizedStr = str.replaceAll(' ', '').toLowerCase();
-  let reversedStr = '';
-  for (let i = normalizedStr.length - 1; i >= 0; i--) {
-    reversedStr += normalizedStr[i];
+function isMeetingWithinWorkingHours(startOfWork, endOfWork, startOfMeeting, meetingDuration) {
+  function timeToMinutes(time) {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
   }
-  return normalizedStr === reversedStr;
-};
-isPalindrome('А роза упала на лапу Азора');
-isPalindrome('проверка');
+
+  const startOfWorkMinutes = timeToMinutes(startOfWork);
+  const endOfWorkMinutes = timeToMinutes(endOfWork);
+  const startOfMeetingMinutes = timeToMinutes(startOfMeeting);
+
+  const endOfMeetingMinutes = startOfMeetingMinutes + meetingDuration;
+
+  if (startOfMeetingMinutes >= startOfWorkMinutes && endOfMeetingMinutes <= endOfWorkMinutes) {
+    return true;
+  } else {
+    return false;
+  }
+}
+isMeetingWithinWorkingHours('08:00', '17:30', '14:00', 90);
+isMeetingWithinWorkingHours('8:0', '10:0', '8:0', 120);
+isMeetingWithinWorkingHours('08:00', '14:30', '14:00', 90);
+isMeetingWithinWorkingHours('14:00', '17:30', '08:0', 90);
+isMeetingWithinWorkingHours('8:00', '17:30', '08:00', 900);
