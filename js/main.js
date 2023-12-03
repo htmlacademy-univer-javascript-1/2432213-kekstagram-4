@@ -1,5 +1,4 @@
-import { generateRandomComment, getRandomNumber } from './util.js';
-import { createPhotoArray } from './data.js';
+import { getPhotoArray } from './getPhotoArray.js';
 
-const photoArray = createPhotoArray();
-
+const photos = getPhotoArray();
+console.log(photos);
