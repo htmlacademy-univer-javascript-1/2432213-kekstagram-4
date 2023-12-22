@@ -1,12 +1,25 @@
-export const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+import { MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER, authorNames, photoDescriptions } from './data.js';
 
-export const generateRandomComment = () => {
-  const comments = [
-    'Всё отлично!',
-    'В целом всё неплохо. Но не всё.',
-    'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-    'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-    'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-    'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
-  ];
+export function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function getRandomAvatarNumber() {
+  return getRandomNumber(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER);
+}
+
+export function getRandomAuthorName() {
+  const randomIndex = getRandomNumber(0, authorNames.length - 1);
+  return authorNames[randomIndex];
+}
+
+export function getRandomPhotoDescription() {
+  const randomIndex = getRandomNumber(0, photoDescriptions.length - 1);
+  return photoDescriptions[randomIndex];
+}
+
+export const onDocumentKeydown = (evt, closingFunc) => {
+  if (evt.key === 'Escape') {
+    closingFunc(evt);
+  }
+};
