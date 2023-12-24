@@ -1,7 +1,9 @@
-import { onDocumentKeydown } from './util.js';
-import { MAX_HASHTAGS_COUNT, MAX_DESCRIPTION_LENGTH } from './data.js';
 import {resetEffect, initEffect} from './effects.js';
 import {resetScale} from './scale.js';
+import { MAX_HASHTAGS_COUNT, MAX_DESCRIPTION_LENGTH } from './data.js';
+import { uploadData } from './api.js';
+import { onSuccess, onFail } from './submit.js';
+import { isEscKey } from './util.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
@@ -23,6 +25,13 @@ const pristine = new Pristine(uploadForm, {
 });
 
 const validateHashtagsCount = (value) => value.trim().split(' ').length <= MAX_HASHTAGS_COUNT;
+
+export const onDocumentKeydown = (evt) =>{
+  if(isEscKey(evt) && !document.body.querySelector('.error')){
+    evt.preventDefault();
+    closeOverlay();
+  }
+};
 
 const validateHashtagsUniqueness = (value) => {
   const hashtags = value.split(' ');
@@ -76,17 +85,19 @@ pristine.addValidator(
   'Описание не может быть больше 140 символов'
 );
 
-function closeOverlay(){
+export function closeOverlay(){
   imageOverlay.classList.add('hidden');
-  resetEffect();
-  resetScale();
   document.body.classList.remove('modal-open');
   closeButton.removeEventListener('click', closeOverlay);
-  document.removeEventListener('keydown', onDocumentKeydown(closeOverlay));
-  uploadInput.addEventListener('click', openOverlay);
+  document.removeEventListener('keydown', onDocumentKeydown);
   uploadInput.value = null;
+  pristine.reset();
+  resetEffect();
+  resetScale();
+  uploadForm.reset();
   hashtagsField.textContent = '';
   descriptionField.textContent = '';
+  submitBtn.removeAttribute('disabled');
 }
 
 function openOverlay() {
@@ -94,8 +105,8 @@ function openOverlay() {
   imageOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   closeButton.addEventListener('click', closeOverlay);
-  document.addEventListener('keydown', onDocumentKeydown(closeOverlay));
-  uploadInput.removeEventListener('click', openOverlay);
+
+  document.addEventListener('keydown', onDocumentKeydown);
 }
 
 uploadInput.addEventListener('change', openOverlay);
@@ -109,6 +120,12 @@ hashtagsField.addEventListener('input', (evt) => {
   else{
     submitBtn.removeAttribute('disabled');
   }
+});
+
+uploadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const formData = new FormData(evt.target);
+  uploadData(onSuccess, onFail, 'POST', formData);
 });
 
 descriptionField.addEventListener('input', (evt) => {

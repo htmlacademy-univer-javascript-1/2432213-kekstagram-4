@@ -1,12 +1,11 @@
-import { generatePhotoArray } from './data.js';
 import { openPicture } from './openBigPic.js';
 
-export const getRenderedCards = () => {
+export const getRenderedCards = (pictures) => {
   const pictureTemplate = document
     .querySelector('#picture')
     .content.querySelector('.picture');
   const picturesContainer = document.querySelector('.pictures');
-  const randomPosts = generatePhotoArray(25);
+  const randomPosts = pictures;
   const picturesFragment = document.createDocumentFragment();
   randomPosts.forEach(({ url, description, likes, comments }) => {
     const picture = pictureTemplate.cloneNode(true);
