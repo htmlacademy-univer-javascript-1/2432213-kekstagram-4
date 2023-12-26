@@ -7,6 +7,7 @@ export const getRenderedCards = (pictures) => {
   const picturesContainer = document.querySelector('.pictures');
   const randomPosts = pictures;
   const picturesFragment = document.createDocumentFragment();
+
   randomPosts.forEach(({ url, description, likes, comments }) => {
     const picture = pictureTemplate.cloneNode(true);
     picture.querySelector('img').src = url;
@@ -19,4 +20,8 @@ export const getRenderedCards = (pictures) => {
     picturesFragment.append(picture);
   });
   picturesContainer.append(picturesFragment);
+};
+
+export const removeRenderedCards = () => {
+  document.querySelectorAll('.picture').forEach((photo) => photo.remove());
 };
