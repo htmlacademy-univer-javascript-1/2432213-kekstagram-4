@@ -1,8 +1,13 @@
 import { loadData } from './api.js';
 import { getRenderedCards } from './module.js';
-export{ loadData } from './api.js';
+import './filters.js';
+export let cards = [];
+const onSuccess = (data) => {
+  cards = data.slice();
+  getRenderedCards(cards);
+};
 
-const onSuccess = (data) => getRenderedCards(data.slice());
+document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 
 const onFail = () => {
   const errorMesage = document.createElement('div');
