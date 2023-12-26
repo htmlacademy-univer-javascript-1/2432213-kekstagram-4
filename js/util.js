@@ -1,5 +1,4 @@
 export const isEscKey = (evt) => evt.key === 'Escape';
-<<<<<<< HEAD
 
 export function debounce (callback, timeoutDelay = 500) {
   let timeoutId;
@@ -19,5 +18,3 @@ export const shuffle = (array) => {
   }
   return array;
 };
-=======
->>>>>>> bfca8f2e3511ddbb6bb429c9847cccd5b9258d8e

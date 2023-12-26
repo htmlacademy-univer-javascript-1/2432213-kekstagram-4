@@ -4,11 +4,8 @@ import { MAX_HASHTAGS_COUNT, MAX_DESCRIPTION_LENGTH } from './data.js';
 import { uploadData } from './api.js';
 import { onSuccess, onFail } from './submit.js';
 import { isEscKey } from './util.js';
-<<<<<<< HEAD
 import { FILE_TYPES } from './data.js';
 
-=======
->>>>>>> bfca8f2e3511ddbb6bb429c9847cccd5b9258d8e
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
@@ -114,7 +111,6 @@ function openOverlay() {
   closeButton.addEventListener('click', closeOverlay);
 
   document.addEventListener('keydown', onDocumentKeydown);
-<<<<<<< HEAD
 
   const file = uploadInput.files[0];
   const fileName = file.name.toLowerCase();
@@ -126,8 +122,6 @@ function openOverlay() {
       effect.style.backgroundImage = `url('${userImg.src}')`;
     });
   }
-=======
->>>>>>> bfca8f2e3511ddbb6bb429c9847cccd5b9258d8e
 }
 
 uploadInput.addEventListener('change', openOverlay);
