@@ -4,6 +4,11 @@ import { MAX_HASHTAGS_COUNT, MAX_DESCRIPTION_LENGTH } from './data.js';
 import { uploadData } from './api.js';
 import { onSuccess, onFail } from './submit.js';
 import { isEscKey } from './util.js';
+<<<<<<< HEAD
+import { FILE_TYPES } from './data.js';
+
+=======
+>>>>>>> bfca8f2e3511ddbb6bb429c9847cccd5b9258d8e
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
@@ -12,6 +17,8 @@ const closeButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const descriptionField = uploadForm.querySelector('.text__description');
 const submitBtn = uploadForm.querySelector('#upload-submit');
+const userImg = uploadForm.querySelector('.img-upload__preview img');
+const effects = uploadForm.querySelectorAll('.effects__preview');
 
 const validationForm = /^#[0-9a-zа-яё]{1,19}$/i;
 
@@ -107,6 +114,20 @@ function openOverlay() {
   closeButton.addEventListener('click', closeOverlay);
 
   document.addEventListener('keydown', onDocumentKeydown);
+<<<<<<< HEAD
+
+  const file = uploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  if(FILE_TYPES.some((it) => fileName.endsWith(it))){
+    userImg.src = URL.createObjectURL(file);
+
+    effects.forEach((effect) => {
+      effect.style.backgroundImage = `url('${userImg.src}')`;
+    });
+  }
+=======
+>>>>>>> bfca8f2e3511ddbb6bb429c9847cccd5b9258d8e
 }
 
 uploadInput.addEventListener('change', openOverlay);
