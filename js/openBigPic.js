@@ -1,3 +1,5 @@
+import { MAX_COMMENTS_LENGTH } from "./data.js";
+
 const commentTemplate = document.querySelector('.social__comment');
 const commentsLoader = document.querySelector('.comments-loader');
 
@@ -9,10 +11,9 @@ const onDocumentKeydown = (evt) => {
 
 const showNextComments = () => {
   let currentComment = document.querySelector('.social__comment.hidden');
-  let i = 0;
+  let currentLoadedComments = 0; //Не магическая переменная, а итератор:)
 
-
-  for (; i < 5; i++) {
+  for (; currentLoadedComments < MAX_COMMENTS_LENGTH; currentLoadedComments++) {
     if (currentComment === null) {
       commentsLoader.classList.add('hidden');
       break;
@@ -27,7 +28,7 @@ const showNextComments = () => {
     }
   }
   document.querySelector('.loaded-comments-count').textContent =
-    +document.querySelector('.loaded-comments-count').textContent + i;
+    +document.querySelector('.loaded-comments-count').textContent + currentLoadedComments;
 };
 
 const loadAllComments = (commentsContainer, comments) => {
