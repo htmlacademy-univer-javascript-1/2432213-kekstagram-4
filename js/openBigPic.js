@@ -1,3 +1,5 @@
+import { MAX_COMMENTS_LENGTH } from "./data.js";
+
 const commentTemplate = document.querySelector('.social__comment');
 const commentsLoader = document.querySelector('.comments-loader');
 
@@ -12,7 +14,7 @@ const showNextComments = () => {
   let i = 0;
 
 
-  for (; i < 5; i++) {
+  for (; i < MAX_COMMENTS_LENGTH; i++) {
     if (currentComment === null) {
       commentsLoader.classList.add('hidden');
       break;
