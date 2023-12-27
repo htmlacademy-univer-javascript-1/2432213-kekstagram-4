@@ -28,17 +28,20 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'img-upload__error'
 });
 
-const validateHashtagsCount = (value) => value.trim().split(' ').length <= MAX_HASHTAGS_COUNT;
-
 export const onDocumentKeydown = (evt) =>{
-  if(isEscKey(evt) && !document.body.querySelector('.error')){
+  if(isEscKey(evt) &&
+  !document.body.querySelector('.error') &&
+  !evt.target.classList.contains('text__hashtags') &&
+  !evt.target.classList.contains('text__description')){
     evt.preventDefault();
     closeOverlay();
   }
 };
 
+const validateHashtagsCount = (value) => value.trim().split(/\s+/).length <= MAX_HASHTAGS_COUNT;
+
 const validateHashtagsUniqueness = (value) => {
-  const hashtags = value.split(' ');
+  const hashtags = value.trim().split(/\s+/);
   const hashTagMap = {};
   for (let i = 0; i < hashtags.length; i++) {
     const hashtag = hashtags[i];
@@ -50,11 +53,11 @@ const validateHashtagsUniqueness = (value) => {
   return true;
 };
 
-const validHashtages = (value) => {
+const validHashtags = (value) => {
   if (value.length === 0) {
     return true;
   }
-  const hashtags = value.trim().split(' ');
+  const hashtags = value.trim().split(/\s+/);
   for (let i = 0; i < hashtags.length; ++i) {
     if (!validationForm.test(hashtags[i])) {
       return false;
@@ -77,7 +80,7 @@ pristine.addValidator(
 
 pristine.addValidator(
   hashtagsField,
-  validHashtages,
+  validHashtags,
   'Ошибка хештега'
 );
 
